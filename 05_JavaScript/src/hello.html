@@ -5,10 +5,11 @@
         <script>
 
             function hello() {
-                if (document.querySelector('h1').innerHTML === 'Hello!') {
-                    document.querySelector('h1').innerHTML = 'Goodbye!';
+                const heading = document.querySelector('h1');
+                if (heading.innerHTML === 'Hello!') {
+                    heading.innerHTML = 'Goodbye!';
                 } else {
-                    document.querySelector('h1').innerHTML = 'Hello!';
+                    heading.innerHTML = 'Hello!';
                 }
                 
             }
@@ -16,7 +17,7 @@
         </script>
     </head>
     <body>
-        <h1>Hello!</h1>
+        <h1>0</h1>
         <button onclick="hello()">Click Here</button>
     </body>
 </html>
