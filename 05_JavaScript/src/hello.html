@@ -5,13 +5,18 @@
         <script>
 
             function hello() {
-                alert('Hello, world');
+                if (document.querySelector('h1').innerHTML === 'Hello!') {
+                    document.querySelector('h1').innerHTML = 'Goodbye!';
+                } else {
+                    document.querySelector('h1').innerHTML = 'Hello!';
+                }
+                
             }
             
         </script>
     </head>
     <body>
-        <h1>Hello</h1>
+        <h1>Hello!</h1>
         <button onclick="hello()">Click Here</button>
     </body>
 </html>
