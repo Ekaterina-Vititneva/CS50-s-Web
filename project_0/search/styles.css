@@ -1,21 +1,27 @@
 .search-bar {
     align-content: center;
-    padding: 150px;
-    margin: 25px auto;
-    margin-inline: 5px;
+    padding: 14px 35px;
+    margin: 24px auto;
+    /*margin-inline: 5px;*/
     text-align: left;
-    border-radius: 25px;
+    border-radius: 28px;
     border: 1px solid #d4d4d4;
-    padding: 4px 2px 2px 2px;
     font-family:sans-serif;
+    width:700px;
+    outline: none;
 }
 .search-bar:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     border: none;
 }
+.search-bar:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border: none;
+    outline: none;
+}
 
 .button {
-    margin: 25px;
+    margin: 12px;
     border-radius: 3px;
     border: none;
     background-color:#f7f7f7;
@@ -27,6 +33,7 @@
 
 .container-center {
     display: flex; /* Enable flexbox layout */
+    flex-wrap: wrap;
     flex-direction: column; /* Arrange children in a vertical layout */
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
@@ -37,5 +44,5 @@
     display: flex; /* Enable flexbox layout for the form */
     flex-direction: column; /* Arrange form elements in a vertical layout */
     /*width: 100%; /* Ensure form occupies the full container width */
-    max-width: 500px; /* Set a maximum width for the form */
+    /*max-width: 700px; /* Set a maximum width for the form */
 }
