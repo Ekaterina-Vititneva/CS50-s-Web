@@ -15,8 +15,10 @@
                 }
             }
 
-            document.querySelector('button').onclick = count;
-
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('button').addEventListener('click', count);
+            });
+            
 
         </script>
     </head>
