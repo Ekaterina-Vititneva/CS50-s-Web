@@ -2,6 +2,17 @@
 <html land="en">
     <head>
         <title>Tasks</title>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('form').onsubmit = () => {
+                    const task = document.querySelector('#task').value;
+                    console.log(task);
+
+                    //Stop form from submitting
+                    return false;
+                }
+            });
+        </script>
     </head>
     <body>
         <h1>Tasks</h1>
