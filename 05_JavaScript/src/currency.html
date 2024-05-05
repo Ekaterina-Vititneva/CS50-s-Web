@@ -8,7 +8,8 @@
                 fetch('https://api.exchangeratesapi.io/latest?base=USD')
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    const rate = data.rates.EUR;
+                    document.querySelector('body').innerHTML = rate;
                 });
 
             });
