@@ -66,7 +66,7 @@ class FlightTestCase(TestCase):
     def test_flight_page_passengers(self):
         f = Flight.objects.get(pk=1)
         p = Passenger.objects.create(first="Alice", last="Adams")
-        f.passenger.add(p)
+        f.passengers.add(p)
         
         c = Client()
         response = c.get(f"/flights{f.id}")
