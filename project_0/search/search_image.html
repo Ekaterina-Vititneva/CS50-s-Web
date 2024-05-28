@@ -10,7 +10,7 @@
         <a href="index.html">Google Search</a>
         <div class="container-center">
             <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="Google logo" width="300">
-            <form action="https://google.com/search" class = "form-stacked">
+            <form id="search-form" action="https://google.com/search" class="form-stacked">
                 <div class="search-container">
                     <span class="material-symbols-outlined search-icon">search</span>
                     <input type="text" name="q" class="search-bar" autofocus>
@@ -20,5 +20,13 @@
                 </div>
             </form>
         </div>
+        <script>
+            document.getElementById('search-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const query = document.querySelector('input[name="q"]').value;
+                const url = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
+                window.location.href = url;
+            });
+        </script>
     </body>
 </html>
