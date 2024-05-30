@@ -1,3 +1,6 @@
+.page {
+    margin: 12px;
+}
 .search-bar {
     align-content: center;
     padding: 14px 35px 14px 50px;
@@ -34,7 +37,15 @@
     flex-direction: column; /* Arrange children in a vertical layout */
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
-    min-height: 100vh; /* Ensure container takes up full viewport height */
+    /*min-height: 100vh;  Ensure container takes up full viewport height */
+}
+
+.container-top-right {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: right;
+    margin-left: auto;
 }
 
 .form-stacked {
@@ -54,4 +65,12 @@
     transform: translateY(-50%);
     color: #b7b7b7;
     user-select: none;
+}
+
+.link {
+    font-family: sans-serif;
+    font-size: 12px;
+    margin: 12px;
+    color:#3b3b3b;
+    text-decoration: none;
 }
