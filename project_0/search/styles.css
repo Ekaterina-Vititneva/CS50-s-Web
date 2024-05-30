@@ -1,20 +1,26 @@
 .page {
-    margin: 12px;
+    display: flex;           /* Enable flexbox layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center;     /* Center content vertically */
+    min-height: 100vh;       /* Ensure the container takes up the full viewport height */
+    margin: 0;               /* Remove any default margin */
+    flex-direction: column;  /* Ensure it stays in a column layout */
 }
+
 .search-bar {
     align-content: center;
     padding: 14px 35px 14px 50px;
     margin: 24px auto;
     text-align: left;
     border-radius: 28px;
-    border: 1px solid #d4d4d4;
+    border: 0.1px solid #d4d4d4;
     font-family:sans-serif;
-    width:700px;
+    width: 700px;
     outline: none;
 }
 .search-bar:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    border: 1px solid #d4d4d4;
+    border: 0.1px solid #d4d4d4;
 }
 
 .button {
@@ -32,12 +38,11 @@
 }
 
 .container-center {
-    display: flex; /* Enable flexbox layout */
-    flex-wrap: wrap;
-    flex-direction: column; /* Arrange children in a vertical layout */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-    /*min-height: 100vh;  Ensure container takes up full viewport height */
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    flex: 1;                /* Allow it to grow and center properly */ 
 }
 
 .container-top-right {
