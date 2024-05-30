@@ -1,10 +1,9 @@
 .page {
-    display: flex;           /* Enable flexbox layout */
-    justify-content: center; /* Center content horizontally */
-    align-items: center;     /* Center content vertically */
-    min-height: 100vh;       /* Ensure the container takes up the full viewport height */
-    margin: 0;               /* Remove any default margin */
-    flex-direction: column;  /* Ensure it stays in a column layout */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 .search-bar {
@@ -27,13 +26,13 @@
     margin: 12px;
     border-radius: 3px;
     border: 1px solid #f7f7f7;
-    background-color:#f7f7f7;
+    background-color:#f6f7f790;
     padding: 7.5px 15px;
     font-size: 15px;
     color: #282828;
 }
 .button:hover {
-    border: 1px solid #d4d4d4;
+    border: 1px solid #f6f7f7;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
 }
 
@@ -74,7 +73,8 @@
 
 .link {
     font-family: sans-serif;
-    font-size: 12px;
+    font-size: 80%;
+    font-stretch: narrower;
     margin: 12px;
     color:#3b3b3b;
     text-decoration: none;
