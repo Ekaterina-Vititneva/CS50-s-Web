@@ -36,20 +36,37 @@
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
 }
 
+#advanced-search.button {
+    margin: 0px;
+    border-radius: 3px;
+    border: 1px solid #3079ed;
+    background-color:#498bf4;
+    padding: 7.5px 15px;
+    font-size: 80%;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#advanced-search.button:hover {
+    background-image: linear-gradient(to bottom, #498bf4 25%, #3079ed);
+    border: 1px solid #2f5bb7;
+}
+
 .container-center {
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
-    flex: 1;                /* Allow it to grow and center properly */ 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
 .container-left {
-    display: flex; 
-    flex-direction: column; 
-    justify-content: left; 
-    align-items: center; 
-    flex: 1;                /* Allow it to grow and center properly */ 
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    flex: 1;
+    width: 97%;
 }
 
 .container-top-right {
@@ -61,8 +78,8 @@
 }
 
 .form-stacked {
-    display: flex; /* Enable flexbox layout for the form */
-    flex-direction: column; /* Arrange form elements in a vertical layout */
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -97,8 +114,39 @@
     height: auto;
 }
 
-.advanced-seach-header{
-    color: red;
+.container-advanced-search {
+    margin:1%;
+}
+
+.advanced-search-header {
+    color: rgb(255, 81, 81);
     font-family: sans-serif;
     font-weight: lighter;
+    margin-left: 2.5%;
+}
+
+.container-advanced-search-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    font-family: sans-serif;
+    font-size: 14px;
+    margin: 20px 0 20px 0;
+}
+
+.advance-search-field {
+    font-family: sans-serif;
+    margin: 5px 0 5px 0;
+    border: 1px solid #c7c7c7;
+    border-radius: 0px;
+}
+
+.advance-search-field:focus {
+    border: 1px solid #498bf4;
+    border-radius: 0px;
+    outline: none;
+}
+
+.advanced-search-top {
+    width:100%;
 }

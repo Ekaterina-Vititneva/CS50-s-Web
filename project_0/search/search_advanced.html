@@ -11,8 +11,26 @@
             <div class="container-top-right">
                 <a class="link" href="index.html">Google Search</a>
             </div>
+            <div class="advanced-search-top">
+                <h5 class="advanced-search-header">Advanced Search</h5>
+                <hr class="solid">
+            </div>
             <div class="container-left">
-                <h5 id="advanced-seach-header">Advanced Search</h5>
+
+                <div class="container-advanced-search">
+                    <h6 id="advanced-search-sub-header">Find pages with...</h6>
+                    <div class="container-advanced-search-list">
+                        <label for="all">all these words:</label>
+                        <input type="text" class="advance-search-field" name="all" autofocus>
+                        <label for="this">this exact word or phrase:</label>
+                        <input type="text" class="advance-search-field" name="this">
+                        <label for="any">any of these words:</label>
+                        <input type="text" class="advance-search-field" name="any">
+                        <label for="none">none of these words:</label>
+                        <input type="text" class="advance-search-field" name="none">
+                    </div>
+                    <input type="submit" value="Advanced Search" class="button" id="advanced-search">
+                </div>
             </div>
         </div>
     </body>
