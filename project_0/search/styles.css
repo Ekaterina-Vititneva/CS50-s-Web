@@ -44,6 +44,14 @@
     flex: 1;                /* Allow it to grow and center properly */ 
 }
 
+.container-left {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: left; 
+    align-items: center; 
+    flex: 1;                /* Allow it to grow and center properly */ 
+}
+
 .container-top-right {
     display: flex;
     flex-wrap: wrap;
@@ -87,4 +95,10 @@
 .logo {
     width: 35%;
     height: auto;
+}
+
+.advanced-seach-header{
+    color: red;
+    font-family: sans-serif;
+    font-weight: lighter;
 }
