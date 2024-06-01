@@ -11,3 +11,15 @@ https://www.google.com/search?q=harvard
 
 **Minimal query for Image Search**
 https://www.google.com/search?q=harvard&tbm=isch
+
+**Standard query for Advanced Search - all**
+https://www.google.com/search?as_q=cat+dog&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=&as_occt=any&as_filetype=&tbs=
+
+**Standard query for Advanced Search - exact**
+https://www.google.com/search?as_q=&as_epq=cat+and+dog&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=&as_occt=any&as_filetype=&tbs=
+
+**Standard query for Advanced Search - any**
+https://www.google.com/search?as_q=&as_epq=&as_oq=cat+dog&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=&as_occt=any&as_filetype=&tbs=
+
+**Standard query for Advanced Search - none**
+https://www.google.com/search?as_q=&as_epq=&as_oq=&as_eq=cat+dog&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=&as_occt=any&as_filetype=&tbs=
