@@ -10,8 +10,8 @@ def index(request):
         "entries": util.list_entries()
     })
     
-def title(request):
-    title = "CSS"
+def title(request, title):
+    #title = "HTML"
     markdowner = Markdown()
     return render(request, "encyclopedia/title.html", {
         "title": title,
