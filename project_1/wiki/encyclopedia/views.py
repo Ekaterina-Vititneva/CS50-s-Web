@@ -11,7 +11,6 @@ def index(request):
     })
     
 def title(request, title):
-    #title = "HTML"
     markdowner = Markdown()
     return render(request, "encyclopedia/title.html", {
         "title": title,
