@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404
 
 from . import util
 
@@ -12,7 +13,11 @@ def index(request):
     
 def title(request, title):
     markdowner = Markdown()
+    try:
+        content = markdowner.convert(util.get_entry(title))
+    except:
+        raise Http404("Title does not exist")
     return render(request, "encyclopedia/title.html", {
         "title": title,
-        "title_content": markdowner.convert(util.get_entry(title))
+        "title_content": content
     })
