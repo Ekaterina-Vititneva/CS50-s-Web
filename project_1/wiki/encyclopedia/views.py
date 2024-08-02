@@ -23,11 +23,28 @@ def title(request, title):
         "title": title,
         "title_content": content
     })
-    
-def search(request, query):
+
+""" 
+def search(request):
+    query = request.GET.get('q')
     all_entries = util.list_entries()
     if query in all_entries:
         return redirect('title_1', title=query)
+"""
+
+def search(request):
+    query = request.GET.get('q')
+    if not query:
+        return redirect('index')
+
+    entries = [entry.lower() for entry in util.list_entries()]
+    if query.lower() in entries:
+        return redirect('title_1', title=query)
+    results = [entry for entry in entries if query.lower() in entry.lower()]
+    return render(request, "encyclopedia/search.html", {
+        "query": query,
+        "results": results
+    })     
 
 def random(request):
     all_entries = util.list_entries()
