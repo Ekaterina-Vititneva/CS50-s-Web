@@ -53,3 +53,6 @@ def random(request):
         raise Http404("No entries available")
     random_entry = choice(all_entries)
     return redirect('title_1', title=random_entry)
+
+def create(request):
+    return render(request, "encyclopedia/create.html")
