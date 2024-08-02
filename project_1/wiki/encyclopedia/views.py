@@ -37,8 +37,9 @@ def search(request):
     if not query:
         return redirect('index')
 
-    entries = [entry.lower() for entry in util.list_entries()]
-    if query.lower() in entries:
+    entries = util.list_entries() 
+    entries_lower = [entry.lower() for entry in entries]
+    if query.lower() in entries_lower:
         return redirect('title_1', title=query)
     results = [entry for entry in entries if query.lower() in entry.lower()]
     return render(request, "encyclopedia/search.html", {
