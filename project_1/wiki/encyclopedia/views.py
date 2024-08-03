@@ -6,6 +6,8 @@ from . import util
 from markdown2 import Markdown
 from random import randint, choice
 
+import os
+
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -56,3 +58,17 @@ def random(request):
 
 def create(request):
     return render(request, "encyclopedia/create.html")
+    
+def save(request):
+    new_title = request.GET.get('new-title')
+    content = request.GET.get('content')
+    #save = request.GET.get('save')
+    all_entries = util.list_entries()
+    if new_title not in all_entries:
+        entries_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'entries')
+        file_path = os.path.join(entries_dir, f"{new_title}.md")
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write(f"# {new_title}\n\n{content}")
+        return redirect('title_1', title=new_title)
+    else:
+        raise Http404("Another encyclopedia entry already exists with the provided title")
