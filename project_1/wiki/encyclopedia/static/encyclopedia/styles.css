@@ -17,7 +17,8 @@ textarea {
     width: 80%;
     margin: 5px;
     padding: 10px;
-
+    border: 1px solid #cccccc;
+    border-radius: 3px;
 }
 
 .main {
@@ -43,19 +44,23 @@ textarea {
 .edit-form {
     display: flex;
     flex-direction: column;
-    margin: 5px;
     align-content: center;
 }
 
 button {
-    margin: 12px;
+    padding: 10px;
+    margin: 5px;
     border-radius: 3px;
-    border: 1px solid #f7f7f7;
+    border: 1px solid #cccccc;
     background-color:#f6f7f790;
     padding: 7.5px 15px;
-    font-size: 80%;
     color: #282828;
     width:80%;
+}
+
+button:hover {
+    border: 1px solid #f3f3f3;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
 }
 
 .new-title {
@@ -63,4 +68,6 @@ button {
     margin: 5px;
     width: 80%;
     font-weight: bold;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
 }
