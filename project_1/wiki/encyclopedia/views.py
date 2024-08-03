@@ -26,14 +26,6 @@ def title(request, title):
         "title_content": content
     })
 
-""" 
-def search(request):
-    query = request.GET.get('q')
-    all_entries = util.list_entries()
-    if query in all_entries:
-        return redirect('title_1', title=query)
-"""
-
 def search(request):
     query = request.GET.get('q')
     if not query:
