@@ -64,3 +64,6 @@ def save(request):
         return redirect('title_1', title=new_title)
     else:
         raise Http404("Another encyclopedia entry already exists with the provided title")
+    
+def edit():
+    pass
