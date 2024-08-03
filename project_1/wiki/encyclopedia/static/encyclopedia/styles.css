@@ -13,8 +13,11 @@ h1 {
 }
 
 textarea {
-    height: 90vh;
+    height: 70vh;
     width: 80%;
+    margin: 5px;
+    padding: 10px;
+
 }
 
 .main {
@@ -35,4 +38,29 @@ textarea {
 
 .sidebar h2 {
     margin-top: 5px;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    align-content: center;
+}
+
+button {
+    margin: 12px;
+    border-radius: 3px;
+    border: 1px solid #f7f7f7;
+    background-color:#f6f7f790;
+    padding: 7.5px 15px;
+    font-size: 80%;
+    color: #282828;
+    width:80%;
+}
+
+.new-title {
+    padding: 10px;
+    margin: 5px;
+    width: 80%;
+    font-weight: bold;
 }
