@@ -8,6 +8,6 @@
 
     {{ title_content|safe }}
 
-    <button type="submit" name="edit">Edit</button>
+    <a href="{% url 'edit' title %}"><button type="button">Edit</button>
 
 {% endblock %}

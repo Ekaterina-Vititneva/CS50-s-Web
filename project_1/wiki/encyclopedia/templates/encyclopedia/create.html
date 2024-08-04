@@ -7,7 +7,7 @@
 {% block body %}
     <h1>Create New Page</h1>
 
-    <form action="{% url 'save' %}" method="get" class="edit-form">
+    <form action="{% url 'save' %}" method="post" class="edit-form">
         {% csrf_token %}
         <input class="new-title" type="text" name="new-title" placeholder="New Page Title">
         <textarea id="content" name="content" rows="4" cols="50" placeholder="New Page Content"></textarea>

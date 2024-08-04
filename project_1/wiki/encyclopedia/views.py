@@ -52,9 +52,8 @@ def create(request):
     return render(request, "encyclopedia/create.html")
     
 def save(request):
-    new_title = request.GET.get('new-title')
-    content = request.GET.get('content')
-    #save = request.GET.get('save')
+    new_title = request.POST.get('new-title')
+    content = request.POST.get('content')
     all_entries = util.list_entries()
     if new_title not in all_entries:
         entries_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'entries')
@@ -65,5 +64,5 @@ def save(request):
     else:
         raise Http404("Another encyclopedia entry already exists with the provided title")
     
-def edit():
+def edit(request):
     pass
