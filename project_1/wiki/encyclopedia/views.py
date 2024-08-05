@@ -64,5 +64,19 @@ def save(request):
     else:
         raise Http404("Another encyclopedia entry already exists with the provided title")
     
-def edit(request):
-    pass
+def edit(request, title):
+    if request.method == "POST":
+        content = request.POST.get('content')
+        entries_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'entries')
+        file_path = os.path.join(entries_dir, f"{title}.md")
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write(f"{content}")
+        return redirect('title_1', title=title)
+    else:
+        existing_content = util.get_entry(title)
+        if existing_content is None:
+            raise Http404("Title does not exist")
+        return render(request, "encyclopedia/edit.html", {
+            "title": title,
+            "content": existing_content
+        })
