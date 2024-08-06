@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
+from django.contrib import messages
 
 from . import util
 
@@ -20,7 +21,9 @@ def title(request, title):
     try:
         content = markdowner.convert(util.get_entry(title))
     except:
-        raise Http404("Title does not exist")
+        #raise Http404("Title does not exist")
+        messages.error(request, "Title does not exist.")
+        return redirect('index')
     return render(request, "encyclopedia/title.html", {
         "title": title,
         "title_content": content
@@ -50,20 +53,25 @@ def random(request):
 
 def create(request):
     return render(request, "encyclopedia/create.html")
-    
+
 def save(request):
-    new_title = request.POST.get('new-title')
-    content = request.POST.get('content')
-    all_entries = util.list_entries()
-    if new_title not in all_entries:
-        entries_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'entries')
-        file_path = os.path.join(entries_dir, f"{new_title}.md")
-        with open(file_path, "w", encoding="utf-8") as file:
-            file.write(f"# {new_title}\n\n{content}")
-        return redirect('title_1', title=new_title)
-    else:
-        raise Http404("Another encyclopedia entry already exists with the provided title")
-    
+    if request.method == "POST":
+        new_title = request.POST.get('new-title')
+        content = request.POST.get('content')
+        all_entries = util.list_entries()
+        if new_title not in all_entries:
+            entries_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'entries')
+            file_path = os.path.join(entries_dir, f"{new_title}.md")
+            with open(file_path, "w", encoding="utf-8") as file:
+                file.write(f"# {new_title}\n\n{content}")
+            return redirect('title_1', title=new_title)
+        else:
+            #raise Http404("Another encyclopedia entry already exists with the provided title")
+            messages.error(request, 'An encyclopedia entry with the provided title already exists.')
+            return render(request, "encyclopedia/create.html")
+
+    return redirect('create')
+   
 def edit(request, title):
     if request.method == "POST":
         content = request.POST.get('content')
