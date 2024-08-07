@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from .models import User, Listing, Bid, Comment
@@ -68,7 +68,16 @@ def create_listing(request):
     if request.method == "POST":
         form = ListingForm(request.POST)
         if form.is_valid():
-            return HttpResponseRedirect("/thanks/")
+            listing = Listing(
+                title=form.cleaned_data['title'],
+                description=form.cleaned_data['description'],
+                starting_bid=form.cleaned_data['starting_bid'],
+                imageURL=form.cleaned_data['imageURL'],
+                category=form.cleaned_data['category'],
+                user=request.user  # Ensure your Listing model has a user field
+            )
+            listing.save()
+            return redirect("index")
     else:
         form = ListingForm()
     
