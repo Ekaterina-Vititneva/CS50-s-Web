@@ -74,7 +74,7 @@ def create_listing(request):
                 starting_bid=form.cleaned_data['starting_bid'],
                 imageURL=form.cleaned_data['imageURL'],
                 category=form.cleaned_data['category'],
-                user=request.user  # Ensure your Listing model has a user field
+                user=request.user
             )
             listing.save()
             return redirect("index")
