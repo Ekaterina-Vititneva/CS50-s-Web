@@ -65,3 +65,16 @@ body {
     object-fit: cover;
     object-position: center;
 }
+
+.card-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5em;
+    height: 4.5em;
+    max-height: 4.5em;
+    padding-bottom: 1px;
+    word-wrap: break-word;
+}
