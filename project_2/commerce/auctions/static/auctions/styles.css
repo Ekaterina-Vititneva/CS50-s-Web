@@ -21,7 +21,10 @@ body {
 }
 
 .listings-grid {
-    margin: 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive columns */
+    gap: 16px; /* Space between grid items */
+    padding: 16px;
 }
 
 .text-body-secondary {
