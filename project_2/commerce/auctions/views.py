@@ -10,7 +10,9 @@ from .forms import ListingForm
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    return render(request, "auctions/index.html", {
+        "listings": Listing.objects.all()
+    })
 
 
 def login_view(request):
@@ -71,7 +73,7 @@ def create_listing(request):
             listing = Listing(
                 title=form.cleaned_data['title'],
                 description=form.cleaned_data['description'],
-                starting_bid=form.cleaned_data['starting_bid'],
+                bid=form.cleaned_data['bid'],
                 imageURL=form.cleaned_data['imageURL'],
                 category=form.cleaned_data['category'],
                 user=request.user
