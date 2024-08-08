@@ -21,7 +21,7 @@ body {
 }
 
 .listings-grid {
-    margin: 1px;
+    margin: 0px;
 }
 
 .listing {
@@ -41,6 +41,14 @@ body {
     border-radius: 8px;
 }
 
+.card:hover {
+    text-decoration: none; 
+}
+
 .listing-image {
     border-radius: 8px 8px 0px 0px;
+}
+
+.listing-card-link:hover {
+    text-decoration: none; 
 }

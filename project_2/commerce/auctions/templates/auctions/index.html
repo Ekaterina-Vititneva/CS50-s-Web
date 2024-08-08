@@ -6,22 +6,23 @@
     
     <div class="listings-grid">
         {% for listing in listings %}
-        
-            <div class="card" style="width: 18rem;">
-                {% if listing.imageURL %}
-                    <img src= "{{ listing.imageURL }}" alt="listingImage" height="200" class="listing-image">
-                {% endif %}
-                <div class="card-body">
-                    <h3 class="card-title">{{ listing.title }}</h3>
-                    <h6 class="card-subtitle mb-2 text-body">Price: {{ listing.bid }}€</h6>
-                    <p class="card-text">
-                        <div>{{ listing.description }}</div>
-                    </p>
+            <a class="listing-card-link" href="{% url 'listing' listing.title %}">
+                <div class="card" style="width: 18rem;">
+                    {% if listing.imageURL %}
+                        <img src= "{{ listing.imageURL }}" alt="listingImage" height="200" class="listing-image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title">{{ listing.title }}</h3>
+                        <h6 class="card-subtitle mb-2 text-body">Price: {{ listing.bid }}€</h6>
+                        <p class="card-text">
+                            <div>{{ listing.description }}</div>
+                        </p>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        <div>Created time: {{ listing.created_at }}</div>
+                    </div>
                 </div>
-                <div class="card-footer text-body-secondary">
-                    <div>Created time: {{ listing.created_at }}</div>
-                </div>
-            </div>
+            </a>
         {% endfor %}
     </div>
 {% endblock %}
