@@ -19,3 +19,28 @@ body {
 .btn-submit {
     margin-top: 1rem;
 }
+
+.listings-grid {
+    margin: 1px;
+}
+
+.listing {
+    margin: 24px auto;
+    border-radius: 28px;
+    border: 0.1px solid #d4d4d4;
+    padding: 10px;
+}
+
+.text-body-secondary {
+    font-size: 14px;
+    color: #696969;
+}
+
+.card {
+    margin: 12px;
+    border-radius: 8px;
+}
+
+.listing-image {
+    border-radius: 8px 8px 0px 0px;
+}
