@@ -22,8 +22,8 @@ body {
 
 .listings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive columns */
-    gap: 16px; /* Space between grid items */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
     padding: 16px;
 }
 
@@ -57,4 +57,10 @@ body {
 .listing {
     display: flex;
     flex-direction: row;
+}
+
+.listing-image-single {
+    width: 500px;
+    object-fit: cover;
+    object-position: center;
 }
