@@ -57,6 +57,7 @@ body {
 .listing {
     display: flex;
     flex-direction: row;
+    gap: 16px;
 }
 
 .listing-image-single {

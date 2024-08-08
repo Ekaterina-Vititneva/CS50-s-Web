@@ -13,11 +13,13 @@
     {% if listing.imageURL %}
         <img src= "{{ listing.imageURL }}" alt="listingImage" height="400px" class="listing-image-single">
     {% endif %}
-    <h6 class="card-subtitle mb-2 text-body">Price: {{ listing.bid }}€</h6>
-    <p class="card-text">
-        <div>{{ listing.description }}</div>
-    </p>
+    <h6 class="listing-bid">Price: {{ listing.bid }}€</h6>
+    <p class="listing-description">{{ listing.description }}</p>
+    <div>Category: {{ listing.updated_at }}</div>
+    <div>Active: {{ listing.active }}</div>
     <div>Created time: {{ listing.created_at }}</div>
+    <div>Updated time: {{ listing.updated_at }}</div>
+    
 </div>
 
 {% endblock %}
