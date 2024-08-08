@@ -1,3 +1,21 @@
 body {
     padding: 10px;
 }
+
+.form-control {
+    margin-bottom: 0.25rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-submit {
+    margin-top: 1rem;
+}
