@@ -6,23 +6,19 @@
 
 {% block body %}
 
-<h2>{{ listing.title }}</h2>
+<h2>Active Listings</h2>
 
 
-<div class="card" style="width: 18rem;">
+<div class="listing">
     {% if listing.imageURL %}
-        <img src= "{{ listing.imageURL }}" alt="listingImage" height="200" class="listing-image">
+        <img src= "{{ listing.imageURL }}" alt="listingImage" height="400px">
     {% endif %}
-    <div class="card-body">
-        <h3 class="card-title">{{ listing.title }}</h3>
-        <h6 class="card-subtitle mb-2 text-body">Price: {{ listing.bid }}€</h6>
-        <p class="card-text">
-            <div>{{ listing.description }}</div>
-        </p>
-    </div>
-    <div class="card-footer text-body-secondary">
-        <div>Created time: {{ listing.created_at }}</div>
-    </div>
+    <h3 class="card-title">{{ listing.title }}</h3>
+    <h6 class="card-subtitle mb-2 text-body">Price: {{ listing.bid }}€</h6>
+    <p class="card-text">
+        <div>{{ listing.description }}</div>
+    </p>
+    <div>Created time: {{ listing.created_at }}</div>
 </div>
 
 {% endblock %}
