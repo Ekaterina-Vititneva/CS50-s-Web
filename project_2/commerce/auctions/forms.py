@@ -18,4 +18,4 @@ class ListingForm(forms.Form):
     )
     
 class BidForm(forms.Form):
-    bid = forms.DecimalField(label="Place Bid", widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    bid = forms.DecimalField(label="Place Bid", widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00€'}))

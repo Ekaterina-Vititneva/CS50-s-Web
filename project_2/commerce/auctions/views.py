@@ -116,7 +116,7 @@ def place_bid(request, title):
                 listing.save()
 
                 new_bid = Bid(
-                    bid=bid_amount,
+                    price=bid_amount,
                     bidder=request.user,
                     listing=listing,
                 )
