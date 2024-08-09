@@ -14,8 +14,10 @@
         <img src= "{{ listing.imageURL }}" alt="listingImage" height="400px" class="listing-image-single">
     {% endif %}
     <h6 class="listing-bid">Price: {{ listing.bid }}€</h6>
+    <p class="listing-description-heading">Description</p>
     <p class="listing-description">{{ listing.description }}</p>
     <div>Category: {{ listing.category }}</div>
+    <div>Created by {{ listing.user }}</div>
     <div>Active: {{ listing.active }}</div>
     <div>Created time: {{ listing.created_at }}</div>
     <div>Updated time: {{ listing.updated_at }}</div>

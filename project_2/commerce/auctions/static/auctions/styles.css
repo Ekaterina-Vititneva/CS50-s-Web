@@ -56,7 +56,7 @@ body {
 
 .listing {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 16px;
 }
 
@@ -77,4 +77,8 @@ body {
     max-height: 4.5em;
     padding-bottom: 1px;
     word-wrap: break-word;
+}
+
+.listing-description-heading {
+    font-weight: bold;
 }
