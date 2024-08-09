@@ -10,17 +10,31 @@
 
 
 <div class="listing">
-    {% if listing.imageURL %}
-        <img src= "{{ listing.imageURL }}" alt="listingImage" height="400px" class="listing-image-single">
-    {% endif %}
-    <h6 class="listing-bid">Price: {{ listing.bid }}€</h6>
-    <p class="listing-description-heading">Description</p>
-    <p class="listing-description">{{ listing.description }}</p>
-    <div>Category: {{ listing.category }}</div>
-    <div>Created by {{ listing.user }}</div>
-    <div>Active: {{ listing.active }}</div>
-    <div>Created time: {{ listing.created_at }}</div>
-    <div>Updated time: {{ listing.updated_at }}</div>
+    <div class="listing-top">
+        {% if listing.imageURL %}
+            <img src= "{{ listing.imageURL }}" alt="listingImage" height="400px" class="listing-image-single">
+        {% endif %}
+        <div class = "bid">
+            <h4 class="listing-bid">{{ listing.bid }}€</h4>
+            <form action="{% url 'register' %}" method="post">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Place bid</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="0.00€">
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class = "listing-details">
+            <div>Category: {{ listing.category }}</div>
+            <div>Created by {{ listing.user }}</div>
+            <div>Created time: {{ listing.created_at }}</div>
+            <div>Updated time: {{ listing.updated_at }}</div>
+        </div>
+    </div>
+    <div class="listing-bottom">
+        <p class="listing-description-heading">Description</p>
+        <p class="listing-description">{{ listing.description }}</p>
+    </div>
     
 </div>
 

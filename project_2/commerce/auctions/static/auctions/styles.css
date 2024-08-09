@@ -82,3 +82,21 @@ body {
 .listing-description-heading {
     font-weight: bold;
 }
+
+.listing-top {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.bid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.listing-details{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
