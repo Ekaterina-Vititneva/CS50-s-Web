@@ -95,11 +95,25 @@ def listing(request, title):
 
 def listing(request, title):
     listing = get_object_or_404(Listing, title=title)
-    form = BidForm()
+    user = request.user
+
+    if request.method == "POST":
+        if 'add_to_watchlist' in request.POST:
+            if listing not in user.watchlist.all():
+                user.watchlist.add(listing)
+                messages.success(request, "Listing added to your watchlist.")
+            else:
+                messages.info(request, "Listing is already in your watchlist.")
+        elif 'remove_from_watchlist' in request.POST:
+            if listing in user.watchlist.all():
+                user.watchlist.remove(listing)
+                messages.success(request, "Listing removed from your watchlist.")
+            else:
+                messages.info(request, "Listing was not in your watchlist.")
 
     return render(request, "auctions/listing.html", {
         "listing": listing,
-        "form": form
+        "form": BidForm(),  # Assuming you're passing a BidForm as well
     })
 
 def place_bid(request, title):
@@ -133,3 +147,28 @@ def place_bid(request, title):
 
     return render(request, "auctions/listing.html", {"listing": listing, "form": form})
 
+def watchlist_add(request, listing_id):
+    listing = get_object_or_404(Listing, id=listing_id)
+    user = request.user
+
+    if listing not in user.watchlist.all():
+        user.watchlist.add(listing)
+        messages.success(request, "Listing added to your watchlist.")
+    else:
+        messages.info(request, "Listing is already in your watchlist.")
+
+    return redirect('listing', title=listing.title)
+
+def categories(request):
+    return render(request, "auctions/categories.html", {
+        "listings": Listing.objects.all()
+    })
+
+def watchlist(request):
+    user = request.user
+    return render(request, "auctions/watchlist.html", {
+        "listings": user.watchlist.all()
+    })
+
+def add_comment(request):
+    return render(request, "auctions/listing.html")

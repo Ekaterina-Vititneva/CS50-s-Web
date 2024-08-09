@@ -1,0 +1,28 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+
+    
+    <div class="listings-grid">
+        {% for listing in listings %}
+            <a class="listing-card-link" href="{% url 'listing' listing.title %}">
+                <div class="card" style="width: 18rem;">
+                    {% if listing.imageURL %}
+                        <img src= "{{ listing.imageURL }}" alt="listing image" height="200" class="listing-image">
+                    {% else %}
+                        <div class="placeholder-rectangle"></div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ listing.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body">Price: {{ listing.bid }}€</h6>
+                        <p class="card-text">{{ listing.description }}</p>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        <div>Created time: {{ listing.created_at }}</div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
