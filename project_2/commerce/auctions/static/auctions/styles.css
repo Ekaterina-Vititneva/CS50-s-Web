@@ -114,3 +114,9 @@ body {
     background-color: #ececec;
     border-radius: 8px 8px 0 0;
 }
+
+.placeholder-rectangle-listing {
+    height: 400px;
+    width: 500px;
+    background-color: #ececec;
+}
