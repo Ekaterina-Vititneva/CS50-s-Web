@@ -9,10 +9,12 @@
             <a class="listing-card-link" href="{% url 'listing' listing.title %}">
                 <div class="card" style="width: 18rem;">
                     {% if listing.imageURL %}
-                        <img src= "{{ listing.imageURL }}" alt="listingImage" height="200" class="listing-image">
+                        <img src= "{{ listing.imageURL }}" alt="listing image" height="200" class="listing-image">
+                    {% else %}
+                        <div class="placeholder-rectangle"></div>
                     {% endif %}
                     <div class="card-body">
-                        <h3 class="card-title">{{ listing.title }}</h3>
+                        <h5 class="card-title">{{ listing.title }}</h5>
                         <h6 class="card-subtitle mb-2 text-body">Price: {{ listing.bid }}€</h6>
                         <p class="card-text">{{ listing.description }}
                         </p>

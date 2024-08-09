@@ -100,3 +100,17 @@ body {
     flex-direction: column;
     gap: 16px;
 }
+
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+}
+
+.placeholder-rectangle {
+    height: 200px;
+    width: 100%;
+    background-color: #ececec;
+    border-radius: 8px 8px 0 0;
+}
