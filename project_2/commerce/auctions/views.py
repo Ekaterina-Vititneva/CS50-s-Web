@@ -95,11 +95,11 @@ def listing(request, title):
 
 def listing(request, title):
     listing = get_object_or_404(Listing, title=title)
-    form = BidForm()  # Initialize the form for the GET request
+    form = BidForm()
 
     return render(request, "auctions/listing.html", {
         "listing": listing,
-        "form": form  # Pass the form to the template
+        "form": form
     })
 
 def place_bid(request, title):
@@ -122,10 +122,14 @@ def place_bid(request, title):
                 )
                 new_bid.save()
 
+                messages.success(request, "Your bid was placed successfully!")
                 return redirect('listing', title=listing.title)
             else:
-                messages.error(request, "Your bid must be higher than the current bid.")
+                messages.error(request, "Your bid must be higher than the current bid.", extra_tags='danger')
+        else:
+            messages.error(request, "Please enter a valid bid.", extra_tags='danger')
     else:
         form = BidForm()
 
     return render(request, "auctions/listing.html", {"listing": listing, "form": form})
+
