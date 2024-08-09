@@ -5,24 +5,25 @@ from django.utils import timezone
 
 class User(AbstractUser):
     def __str__(self):
-        return f"{self.first_name} {self.last_name} ({self.username})"
+        return f"{self.first_name} {self.last_name} {self.username}"
 
 class Listing(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField()
     imageURL = models.URLField(blank=True)
     CATEGORIES = [
-        ('ELECTRONICS', 'Electronics'),
-        ('FASHION', 'Fashion'),
-        ('HOME', 'Home'),
-        ('TOYS', 'Toys'),
+        ('Electronics', 'Electronics'),
+        ('Fashion', 'Fashion'),
+        ('Home', 'Home'),
+        ('Toys', 'Toys'),
     ]
     category = models.CharField(max_length=64, choices=CATEGORIES, blank=True)
     active = models.BooleanField(default=True)
     bid = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_listing", default=1)
+    last_modifed_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="modified_listing", default=1)
     
     def __str__(self):
         return self.title

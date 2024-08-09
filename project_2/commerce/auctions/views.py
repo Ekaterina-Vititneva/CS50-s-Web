@@ -76,7 +76,8 @@ def create_listing(request):
                 bid=form.cleaned_data['bid'],
                 imageURL=form.cleaned_data['imageURL'],
                 category=form.cleaned_data['category'],
-                user=request.user
+                created_by=request.user, 
+                last_modifed_by=request.user
             )
             listing.save()
             return redirect("index")

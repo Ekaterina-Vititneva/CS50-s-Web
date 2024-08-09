@@ -16,17 +16,19 @@
         {% endif %}
         <div class = "bid">
             <h4 class="listing-bid">{{ listing.bid }}€</h4>
-            <form action="{% url 'register' %}" method="post">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Place bid</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="0.00€">
-                    <button type="button" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
+            {% if user.is_authenticated %}
+                <form action="{% url 'register' %}" method="post">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Place bid</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="0.00€">
+                        <button type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            {% endif %}
         </div>
         <div class = "listing-details">
             <div>Category: {{ listing.category }}</div>
-            <div>Created by {{ listing.user }}</div>
+            <div>Listed by {{ listing.created_by }}</div>
             <div>Created time: {{ listing.created_at }}</div>
             <div>Updated time: {{ listing.updated_at }}</div>
         </div>
