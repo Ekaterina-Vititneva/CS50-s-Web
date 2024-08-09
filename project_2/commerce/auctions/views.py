@@ -1,12 +1,13 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.contrib import messages
 
 from .models import User, Listing, Bid, Comment
 
-from .forms import ListingForm
+from .forms import ListingForm, BidForm
 
 
 def index(request):
@@ -91,3 +92,40 @@ def listing(request, title):
     return render(request, "auctions/listing.html", {
         "listing": listing
         })
+
+def listing(request, title):
+    listing = get_object_or_404(Listing, title=title)
+    form = BidForm()  # Initialize the form for the GET request
+
+    return render(request, "auctions/listing.html", {
+        "listing": listing,
+        "form": form  # Pass the form to the template
+    })
+
+def place_bid(request, title):
+    listing = get_object_or_404(Listing, title=title)
+
+    if request.method == "POST":
+        form = BidForm(request.POST)
+        if form.is_valid():
+            bid_amount = form.cleaned_data['bid']
+
+            if bid_amount > listing.bid:
+                listing.bid = bid_amount
+                listing.last_modifed_by = request.user
+                listing.save()
+
+                new_bid = Bid(
+                    bid=bid_amount,
+                    bidder=request.user,
+                    listing=listing,
+                )
+                new_bid.save()
+
+                return redirect('listing', title=listing.title)
+            else:
+                messages.error(request, "Your bid must be higher than the current bid.")
+    else:
+        form = BidForm()
+
+    return render(request, "auctions/listing.html", {"listing": listing, "form": form})

@@ -7,12 +7,15 @@ class ListingForm(forms.Form):
     imageURL = forms.URLField(label="Image URL", required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
     category = forms.ChoiceField(
         choices=[
-            ('ELECTRONICS', 'Electronics'),
-            ('FASHION', 'Fashion'),
-            ('HOME', 'Home'),
-            ('TOYS', 'Toys'),
+            ('Electronics', 'Electronics'),
+            ('Fashion', 'Fashion'),
+            ('Home', 'Home'),
+            ('Toys', 'Toys'),
         ],
         label="Category",
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
+    
+class BidForm(forms.Form):
+    bid = forms.DecimalField(label="Place Bid", widget=forms.NumberInput(attrs={'class': 'form-control'}))

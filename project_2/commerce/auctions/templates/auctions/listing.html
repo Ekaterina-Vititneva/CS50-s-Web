@@ -19,11 +19,11 @@
         <div class = "bid">
             <h4 class="listing-bid">{{ listing.bid }}€</h4>
             {% if user.is_authenticated %}
-                <form action="{% url 'register' %}" method="post">
+                <form action="{% url 'place_bid' listing.title %}" method="post">
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Place bid</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="0.00€">
-                        <button type="button" class="btn btn-primary">Submit</button>
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary btn-submit">Submit</button>
                     </div>
                 </form>
             {% endif %}
