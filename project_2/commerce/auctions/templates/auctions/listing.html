@@ -62,9 +62,9 @@
             <div>Updated time: {{ listing.updated_at }}</div>
             <div>Statuse: 
                 {%if listing.active%}
-                    Active
+                    <span class="badge text-bg-success">Active</span>
                 {% else %}
-                    Closed
+                    <span class="badge text-bg-danger">Closed</span>
                 {% endif %}
             </div>
         </div>

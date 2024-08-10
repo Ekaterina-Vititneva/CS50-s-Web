@@ -11,7 +11,7 @@ from .forms import ListingForm, BidForm
 
 
 def index(request):
-    active_listings = Listing.objects.all()
+    active_listings = Listing.objects.filter(active=True)
     return render(request, "auctions/index.html", {
         "listings": active_listings
     })
@@ -132,7 +132,7 @@ def listing(request, title):
             if listing.active:
                 listing.active = False
                 listing.save()
-                messages.success(request, "Your listing was deleted successfully!")
+                messages.success(request, "Your listing was closed successfully!")
                 return redirect('listing', title=listing.title)
 
     else:
