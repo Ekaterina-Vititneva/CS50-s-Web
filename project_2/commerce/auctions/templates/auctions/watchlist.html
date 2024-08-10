@@ -6,7 +6,7 @@
     
     <div class="listings-grid">
         {% for listing in listings %}
-            <a class="listing-card-link" href="{% url 'listing' listing.title %}">
+            <a class="listing-card-link link-offset-2 link-underline link-underline-opacity-0" href="{% url 'listing' listing.title %}">
                 <div class="card" style="width: 18rem;">
                     {% if listing.imageURL %}
                         <img src= "{{ listing.imageURL }}" alt="listing image" height="200" class="listing-image">

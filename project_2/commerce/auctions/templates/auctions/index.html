@@ -6,7 +6,7 @@
     
     <div class="listings-grid">
         {% for listing in listings %}
-            <a class="listing-card-link" href="{% url 'listing' listing.title %}">
+            <a class="listing-card-link link-offset-2 link-underline link-underline-opacity-0" href="{% url 'listing' listing.title %}">
                 <div class="card" style="width: 18rem;">
                     {% if listing.imageURL %}
                         <img src= "{{ listing.imageURL }}" alt="listing image" height="200" class="listing-image">
@@ -15,7 +15,16 @@
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ listing.title }}</h5>
-                        <h6 class="card-subtitle mb-2 text-body">Price: {{ listing.bid }}€</h6>
+                        <div class="card-price">
+                            <h6 class="card-subtitle mb-2 text-body">Price: {{ listing.bid }}€</h6>
+                            <div class="card-statuse">
+                                {%if listing.active%}
+                                    <span class="badge text-bg-success">Active</span>
+                                {% else %}
+                                    <span class="badge text-bg-danger">Closed</span>
+                                {% endif %}
+                            </div>
+                        </div>
                         <p class="card-text">{{ listing.description }}</p>
                     </div>
                     <div class="card-footer text-body-secondary">
