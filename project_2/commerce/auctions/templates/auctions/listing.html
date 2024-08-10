@@ -43,7 +43,14 @@
                         <button type="submit" name="add_to_watchlist" class="btn btn-primary">Add to Watchlist</button>
                     {% endif %}
                 </form>
-                
+                {% if user == listing.created_by %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if listing.active == True %}
+                            <button type="submit" name="close_listing" class="btn btn-danger">Close Listing</button>
+                        {% endif %}
+                    </form>
+                {% endif %}
             {% endif %}
             
         </div>
@@ -53,6 +60,13 @@
             <div>Last Bid by {{ listing.last_modifed_by }}</div>
             <div>Created time: {{ listing.created_at }}</div>
             <div>Updated time: {{ listing.updated_at }}</div>
+            <div>Statuse: 
+                {%if listing.active%}
+                    Active
+                {% else %}
+                    Closed
+                {% endif %}
+            </div>
         </div>
     </div>
     <div class="listing-bottom">

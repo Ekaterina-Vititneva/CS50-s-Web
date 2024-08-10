@@ -11,8 +11,9 @@ from .forms import ListingForm, BidForm
 
 
 def index(request):
+    active_listings = Listing.objects.all()
     return render(request, "auctions/index.html", {
-        "listings": Listing.objects.all()
+        "listings": active_listings
     })
 
 
@@ -125,6 +126,14 @@ def listing(request, title):
                     messages.error(request, "Your bid must be higher than the current bid.", extra_tags='danger')
             else:
                 messages.error(request, "Please enter a valid bid.", extra_tags='danger')
+                
+        elif 'close_listing' in request.POST:
+            # Handle listing closing
+            if listing.active:
+                listing.active = False
+                listing.save()
+                messages.success(request, "Your listing was deleted successfully!")
+                return redirect('listing', title=listing.title)
 
     else:
         form = BidForm()
