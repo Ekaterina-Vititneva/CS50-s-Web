@@ -19,7 +19,7 @@
         <div class = "bid">
             <h4 class="listing-bid">{{ listing.bid }}€</h4>
             {% if user.is_authenticated %}
-                <form action="{% url 'place_bid' listing.title %}" method="post" class="bid-form">
+                <form action="{% url 'listing' listing.title %}" method="post" class="bid-form">
                     <div class="mb-3">
                         {% csrf_token %}
                         {{ form.as_p }}

@@ -88,76 +88,53 @@ def create_listing(request):
     return render(request, "auctions/create_listing.html", {"form": form})
 
 def listing(request, title):
-    listing = Listing.objects.get(title=title)
-    return render(request, "auctions/listing.html", {
-        "listing": listing
-        })
-
-def listing(request, title):
     listing = get_object_or_404(Listing, title=title)
     user = request.user
 
     if request.method == "POST":
-        if 'add_to_watchlist' in request.POST:
-            if listing not in user.watchlist.all():
-                user.watchlist.add(listing)
-                messages.success(request, "Listing added to your watchlist.")
+        if 'add_to_watchlist' in request.POST or 'remove_from_watchlist' in request.POST:
+            # Handle watchlist modification
+            if 'add_to_watchlist' in request.POST:
+                if listing not in user.watchlist.all():
+                    user.watchlist.add(listing)
+            elif 'remove_from_watchlist' in request.POST:
+                if listing in user.watchlist.all():
+                    user.watchlist.remove(listing)
+            return redirect('listing', title=listing.title)
+
+        elif 'bid' in request.POST:
+            # Handle bid submission
+            form = BidForm(request.POST)
+            if form.is_valid():
+                bid_amount = form.cleaned_data['bid']
+                if bid_amount > listing.bid:
+                    listing.bid = bid_amount
+                    listing.last_modified_by = request.user
+                    listing.save()
+
+                    new_bid = Bid(
+                        price=bid_amount,
+                        bidder=request.user,
+                        listing=listing,
+                    )
+                    new_bid.save()
+
+                    messages.success(request, "Your bid was placed successfully!")
+                    return redirect('listing', title=listing.title)
+                else:
+                    messages.error(request, "Your bid must be higher than the current bid.", extra_tags='danger')
             else:
-                messages.info(request, "Listing is already in your watchlist.")
-        elif 'remove_from_watchlist' in request.POST:
-            if listing in user.watchlist.all():
-                user.watchlist.remove(listing)
-                messages.success(request, "Listing removed from your watchlist.")
-            else:
-                messages.info(request, "Listing was not in your watchlist.")
+                messages.error(request, "Please enter a valid bid.", extra_tags='danger')
 
-    return render(request, "auctions/listing.html", {
-        "listing": listing,
-        "form": BidForm(),  # Assuming you're passing a BidForm as well
-    })
-
-def place_bid(request, title):
-    listing = get_object_or_404(Listing, title=title)
-
-    if request.method == "POST":
-        form = BidForm(request.POST)
-        if form.is_valid():
-            bid_amount = form.cleaned_data['bid']
-
-            if bid_amount > listing.bid:
-                listing.bid = bid_amount
-                listing.last_modifed_by = request.user
-                listing.save()
-
-                new_bid = Bid(
-                    price=bid_amount,
-                    bidder=request.user,
-                    listing=listing,
-                )
-                new_bid.save()
-
-                messages.success(request, "Your bid was placed successfully!")
-                return redirect('listing', title=listing.title)
-            else:
-                messages.error(request, "Your bid must be higher than the current bid.", extra_tags='danger')
-        else:
-            messages.error(request, "Please enter a valid bid.", extra_tags='danger')
     else:
         form = BidForm()
 
-    return render(request, "auctions/listing.html", {"listing": listing, "form": form})
+    return render(request, "auctions/listing.html", {
+        "listing": listing,
+        "form": form,
+    })
 
-def watchlist_add(request, listing_id):
-    listing = get_object_or_404(Listing, id=listing_id)
-    user = request.user
 
-    if listing not in user.watchlist.all():
-        user.watchlist.add(listing)
-        messages.success(request, "Listing added to your watchlist.")
-    else:
-        messages.info(request, "Listing is already in your watchlist.")
-
-    return redirect('listing', title=listing.title)
 
 def categories(request):
     return render(request, "auctions/categories.html", {
