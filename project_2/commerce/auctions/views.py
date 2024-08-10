@@ -78,7 +78,7 @@ def create_listing(request):
                 imageURL=form.cleaned_data['imageURL'],
                 category=form.cleaned_data['category'],
                 created_by=request.user, 
-                last_modifed_by=request.user
+                last_modified_by=request.user
             )
             listing.save()
             return redirect("index")
@@ -137,6 +137,12 @@ def listing(request, title):
 
 
 def categories(request):
+    unique_categories = Listing.objects.values('category').distinct()
+    return render(request, "auctions/categories.html", {
+        "categories": unique_categories
+    })
+    
+def category_listings(request, category):
     return render(request, "auctions/categories.html", {
         "listings": Listing.objects.all()
     })
