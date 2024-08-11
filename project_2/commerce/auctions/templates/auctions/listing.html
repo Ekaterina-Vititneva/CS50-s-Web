@@ -8,6 +8,12 @@
 
 <h2>Listing: {{ listing.title }}</h2>
 
+{% if not listing.active %}
+    <div class="alert alert-danger">This listing is closed.</div>
+    {% if listing.last_modified_by == user %}
+        <div class="alert alert-success">Congratulations! You have won this auction.</div>
+    {% endif %}
+{% endif %}
 
 <div class="listing">
     <div class="listing-top">
@@ -67,17 +73,6 @@
                     <span class="badge text-bg-danger">Closed</span>
                 {% endif %}
             </div>
-        </div>
-    </div>
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <img src="..." class="rounded me-2" alt="...">
-          <strong class="me-auto">Bootstrap</strong>
-          <small>11 mins ago</small>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          Hello, world! This is a toast message.
         </div>
     </div>
     <div class="listing-bottom">
