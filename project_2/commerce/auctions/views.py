@@ -119,7 +119,9 @@ def listing(request, title):
                         listing=listing,
                     )
                     new_bid.save()
-
+                    listing.last_modified_by = user
+                    listing.save()
+                    
                     messages.success(request, "Your bid was placed successfully!")
                     return redirect('listing', title=listing.title)
                 else:

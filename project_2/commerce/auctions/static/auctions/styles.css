@@ -39,19 +39,30 @@ body {
     text-decoration: none !important;
 }
 
-.card:hover {
-    text-decoration: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
 .card-price {
     display: flex;
     flex-direction: row;
 }
 
+.card-subtitle-bold {
+    font-weight: bold;
+}
+
 .card-statuse {
-    align-items: center;
-    margin-left: 10px;
+    margin-left: auto;
+}
+
+.text-bg-success {
+    background-color: #9ab7f4 !important;
+}
+
+.text-bg-danger {
+    background-color: #e0ac8b !important;
+}
+
+.card:hover {
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .listing-image {

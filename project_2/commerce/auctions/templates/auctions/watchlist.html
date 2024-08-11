@@ -15,7 +15,16 @@
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ listing.title }}</h5>
-                        <h6 class="card-subtitle mb-2 text-body">Price: {{ listing.bid }}€</h6>
+                        <div class="card-price">
+                            <p class="card-subtitle-bold">Price: {{ listing.bid }}€</p>
+                            <div class="card-statuse">
+                                {%if listing.active%}
+                                    <span class="badge text-bg-success">Active</span>
+                                {% else %}
+                                    <span class="badge text-bg-danger">Closed</span>
+                                {% endif %}
+                            </div>
+                        </div>
                         <p class="card-text">{{ listing.description }}</p>
                     </div>
                     <div class="card-footer text-body-secondary">
