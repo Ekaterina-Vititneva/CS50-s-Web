@@ -4,10 +4,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from .models import User, Listing, Bid, Comment
 
-from .forms import ListingForm, BidForm
+from .forms import ListingForm, BidForm, CommentForm
 
 
 def index(request):
@@ -92,60 +93,74 @@ def listing(request, title):
     listing = get_object_or_404(Listing, title=title)
     user = request.user
 
+    form = BidForm()
+    comment_form = CommentForm()
+
     if request.method == "POST":
-        if 'add_to_watchlist' in request.POST or 'remove_from_watchlist' in request.POST:
-            # Handle watchlist modification
-            if 'add_to_watchlist' in request.POST:
-                if listing not in user.watchlist.all():
-                    user.watchlist.add(listing)
-            elif 'remove_from_watchlist' in request.POST:
-                if listing in user.watchlist.all():
-                    user.watchlist.remove(listing)
-            return redirect('listing', title=listing.title)
-
-        elif 'bid' in request.POST:
-            # Handle bid submission
-            form = BidForm(request.POST)
-            if form.is_valid():
-                bid_amount = form.cleaned_data['bid']
-                if bid_amount > listing.bid:
-                    listing.bid = bid_amount
-                    listing.last_modified_by = request.user
-                    listing.save()
-
-                    new_bid = Bid(
-                        price=bid_amount,
-                        bidder=request.user,
-                        listing=listing,
-                    )
-                    new_bid.save()
-                    listing.last_modified_by = user
-                    listing.save()
-                    
-                    messages.success(request, "Your bid was placed successfully!")
-                    return redirect('listing', title=listing.title)
-                else:
-                    messages.error(request, "Your bid must be higher than the current bid.", extra_tags='danger')
-            else:
-                messages.error(request, "Please enter a valid bid.", extra_tags='danger')
-                
+        if 'bid' in request.POST:
+            return handle_bid(request, listing)
+        elif 'comment' in request.POST:
+            return handle_comment(request, listing)
         elif 'close_listing' in request.POST:
-            # Handle listing closing
-            if listing.active:
-                listing.active = False
-                listing.save()
-                messages.success(request, "Your listing was closed successfully!")
-                return redirect('listing', title=listing.title)
+            return handle_close_listing(request, listing)
 
-    else:
-        form = BidForm()
+    comments = listing.comments.all()
 
     return render(request, "auctions/listing.html", {
         "listing": listing,
         "form": form,
+        "comment_form": comment_form,
+        "comments": comments,
     })
 
+    
+def handle_bid(request, listing):
+    form = BidForm(request.POST)
+    if form.is_valid():
+        bid_amount = form.cleaned_data['bid']
+        if bid_amount > listing.bid:
+            listing.bid = bid_amount
+            listing.last_modified_by = request.user
+            listing.save()
 
+            new_bid = Bid(
+                price=bid_amount,
+                bidder=request.user,
+                listing=listing,
+            )
+            new_bid.save()
+
+            messages.success(request, "Your bid was placed successfully!")
+        else:
+            messages.error(request, "Your bid must be higher than the current bid.", extra_tags='danger')
+    else:
+        messages.error(request, "Please enter a valid bid.", extra_tags='danger')
+
+    return redirect('listing', title=listing.title)
+
+
+def handle_comment(request, listing):
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        new_comment = comment_form.save(commit=False)
+        new_comment.listing = listing
+        new_comment.user = request.user
+        new_comment.save()
+        messages.success(request, "Your comment was added successfully!")
+    else:
+        messages.error(request, "There was a problem with your comment. Please try again.")
+
+    return redirect('listing', title=listing.title)
+
+def handle_close_listing(request, listing):
+    if listing.active:
+        listing.active = False
+        listing.save()
+        messages.success(request, "Your listing was closed successfully!")
+
+    return redirect('listing', title=listing.title)
+
+    
 
 def categories(request):
     unique_categories = Listing.objects.values('category').distinct()
@@ -166,5 +181,16 @@ def watchlist(request):
         "listings": user.watchlist.all()
     })
 
-def add_comment(request):
-    return render(request, "auctions/listing.html")
+@login_required
+def add_comment(request, title):
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        new_comment = comment_form.save(commit=False)
+        new_comment.listing = listing
+        new_comment.user = request.user
+        new_comment.save()
+        messages.success(request, "Your comment was added successfully!")
+    else:
+        messages.error(request, "There was a problem with your comment. Please try again.")
+
+    return redirect('listing', title=listing.title)

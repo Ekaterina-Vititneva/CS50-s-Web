@@ -78,6 +78,16 @@
     <div class="listing-bottom">
         <p class="listing-description-heading">Description</p>
         <p class="listing-description">{{ listing.description }}</p>
+        <div class="comments">
+            <p class="listing-description-heading">Comments</p>
+            {% if user.is_authenticated %}
+                <form action="{% url 'listing' listing.title %}" method="post">
+                    {% csrf_token %}
+                    {{ comment_form.as_p }}
+                    <button type="submit" class="btn btn-primary" name="comment">Add Comment</button>
+                </form>
+            {% endif %}
+        </div>
     </div>
     
 </div>
