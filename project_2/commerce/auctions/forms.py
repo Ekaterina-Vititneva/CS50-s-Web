@@ -19,3 +19,6 @@ class ListingForm(forms.Form):
     
 class BidForm(forms.Form):
     bid = forms.DecimalField(label="Place Bid", widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00€'}))
+    
+class CommentForm(forms.Form):
+    comment = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Add a comment...'}))
