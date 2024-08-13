@@ -103,6 +103,12 @@ def listing(request, title):
             return handle_comment(request, listing)
         elif 'close_listing' in request.POST:
             return handle_close_listing(request, listing)
+        elif 'add_to_watchlist' in request.POST:
+            user.watchlist.add(listing)
+            messages.success(request, "Listing added to your watchlist.")
+        elif 'remove_from_watchlist' in request.POST:
+            user.watchlist.remove(listing)
+            messages.success(request, "Listing removed from your watchlist.")
 
     comments = listing.comments.all()
 
@@ -112,6 +118,7 @@ def listing(request, title):
         "comment_form": comment_form,
         "comments": comments,
     })
+
 
     
 def handle_bid(request, listing):
