@@ -8,11 +8,16 @@
     <h2>Categories</h2>
     <ul>
         {% for category in categories %}
-            <li>
-                <a href="{% url 'category_listings' category.category %}">
-                    {{ category.category }}
-                </a>
-            </li>
+            {% if category.category %}  <!-- Check if category is not empty -->
+                <li>
+                    <a href="{% url 'category_listings' category.category %}">
+                        {{ category.category }}
+                    </a>
+                </li>
+            {% endif %}
         {% endfor %}
+        <li>
+            <a href="{% url 'no_category_listings' %}">No category assigned</a>  <!-- Link to no category listings -->
+        </li>
     </ul>
 {% endblock %}

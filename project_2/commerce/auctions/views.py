@@ -69,7 +69,6 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
-@login_required
 def create_listing(request):
     if request.method == "POST":
         form = ListingForm(request.POST)
@@ -199,3 +198,10 @@ def add_comment(request, title):
         messages.error(request, "There was a problem with your comment. Please try again.")
 
     return redirect('listing', title=listing.title)
+
+def no_category_listings(request):
+    listings = Listing.objects.filter(category='')  # Fetch listings with no category
+    return render(request, "auctions/no_category_listings.html", {
+        "listings": listings,
+        "category": "No Category Assigned"
+    })
