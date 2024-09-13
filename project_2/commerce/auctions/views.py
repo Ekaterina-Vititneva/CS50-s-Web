@@ -69,21 +69,19 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
+@login_required
 def create_listing(request):
     if request.method == "POST":
         form = ListingForm(request.POST)
         if form.is_valid():
-            listing = Listing(
-                title=form.cleaned_data['title'],
-                description=form.cleaned_data['description'],
-                bid=form.cleaned_data['bid'],
-                imageURL=form.cleaned_data['imageURL'],
-                category=form.cleaned_data['category'],
-                created_by=request.user, 
-                last_modified_by=request.user
-            )
+            listing = form.save(commit=False)
+            listing.created_by = request.user
+            listing.last_modified_by = request.user
             listing.save()
+            messages.success(request, "Listing created successfully!")
             return redirect("index")
+        else:
+            messages.error(request, "Please correct the errors below.")
     else:
         form = ListingForm()
     
