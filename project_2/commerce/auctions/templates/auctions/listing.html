@@ -1,95 +1,91 @@
-{% extends "auctions/layout.html" %}
-
-{% block title %}
-    {{ title }}
-{% endblock %}
-
-{% block body %}
+{% extends "auctions/layout.html" %} {% block title %} {{ title }} {% endblock %} {% block body %}
 
 <h2>Listing: {{ listing.title }}</h2>
 
 {% if not listing.active %}
-    <div class="alert alert-danger">This listing is closed.</div>
-    {% if listing.last_modified_by == user %}
-        <div class="alert alert-success">Congratulations! You have won this auction.</div>
-    {% endif %}
-{% endif %}
+<div class="alert alert-danger">This listing is closed.</div>
+{% if listing.last_modified_by == user %}
+<div class="alert alert-success">Congratulations! You have won this auction.</div>
+{% endif %} {% endif %}
 
 <div class="listing">
-    <div class="listing-top">
-        {% if listing.imageURL %}
-            <img src= "{{ listing.imageURL }}" alt="listingImage" height="400px" class="listing-image-single">
+  <div class="listing-top">
+    {% if listing.imageURL %}
+    <img
+      src="{{ listing.imageURL }}"
+      alt="listingImage"
+      height="400px"
+      class="listing-image-single"
+    />
+    {% else %}
+    <div class="placeholder-rectangle-listing"></div>
+    {% endif %}
+    <div class="bid">
+      <h4 class="listing-bid">{{ listing.bid }}€</h4>
+      {% if user.is_authenticated %}
+      <form action="{% url 'listing' listing.title %}" method="post" class="bid-form">
+        {% csrf_token %} {{ form.as_p }}
+        <input type="hidden" name="form_type" value="bid_form" />
+        <!-- Other form elements -->
+        <button type="submit" class="btn btn-primary btn-submit">Submit</button>
+      </form>
+
+      <form method="post">
+        {% csrf_token %} {% if listing in user.watchlist.all %}
+        <button type="submit" name="remove_from_watchlist" class="btn btn-danger">
+          Remove from Watchlist
+        </button>
         {% else %}
-            <div class="placeholder-rectangle-listing"></div>
+        <button type="submit" name="add_to_watchlist" class="btn btn-primary">
+          Add to Watchlist
+        </button>
         {% endif %}
-        <div class = "bid">
-            <h4 class="listing-bid">{{ listing.bid }}€</h4>
-            {% if user.is_authenticated %}
-                <form action="{% url 'listing' listing.title %}" method="post" class="bid-form">
-                    <div class="mb-3">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        {% if messages %}
-                            <div>
-                                {% for message in messages %}
-                                    <div class="alert custom-alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
-                                        <div>{{ message | safe }}</div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                        <button type="submit" class="btn btn-primary btn-submit">Submit</button>
-                    </div>
-                </form>
-                <form method="post">
-                    {% csrf_token %}
-                    {% if listing in user.watchlist.all %}
-                        <button type="submit" name="remove_from_watchlist" class="btn btn-danger">Remove from Watchlist</button>
-                    {% else %}
-                        <button type="submit" name="add_to_watchlist" class="btn btn-primary">Add to Watchlist</button>
-                    {% endif %}
-                </form>
-                {% if user == listing.created_by %}
-                    <form method="post">
-                        {% csrf_token %}
-                        {% if listing.active == True %}
-                            <button type="submit" name="close_listing" class="btn btn-danger">Close Listing</button>
-                        {% endif %}
-                    </form>
-                {% endif %}
-            {% endif %}
-            
-        </div>
-        <div class = "listing-details">
-            <div>Category: {{ listing.category }}</div>
-            <div>Listed by {{ listing.created_by }}</div>
-            <div>Last Bid by {{ listing.last_modified_by }}</div>
-            <div>Created time: {{ listing.created_at }}</div>
-            <div>Updated time: {{ listing.updated_at }}</div>
-            <div>Statuse: 
-                {%if listing.active%}
-                    <span class="badge text-bg-success">Active</span>
-                {% else %}
-                    <span class="badge text-bg-danger">Closed</span>
-                {% endif %}
-            </div>
-        </div>
+      </form>
+      {% if user == listing.created_by %}
+      <form method="post">
+        {% csrf_token %} {% if listing.active == True %}
+        <button type="submit" name="close_listing" class="btn btn-danger">Close Listing</button>
+        {% endif %}
+      </form>
+      {% endif %} {% endif %}
     </div>
-    <div class="listing-bottom">
-        <p class="listing-description-heading">Description</p>
-        <p class="listing-description">{{ listing.description }}</p>
-        <div class="comments">
-            <p class="listing-description-heading">Comments</p>
-            {% if user.is_authenticated %}
-                <form action="{% url 'listing' listing.title %}" method="post">
-                    {% csrf_token %}
-                    {{ comment_form.as_p }}
-                    <button type="submit" class="btn btn-primary" name="comment">Add Comment</button>
-                </form>
-            {% endif %}
-        </div>
+    <div class="listing-details">
+      <div>Category: {{ listing.category }}</div>
+      <div>Listed by {{ listing.created_by }}</div>
+      <div>Last Bid by {{ listing.last_modified_by }}</div>
+      <div>Created time: {{ listing.created_at }}</div>
+      <div>Updated time: {{ listing.updated_at }}</div>
+      <div>
+        Statuse: {%if listing.active%}
+        <span class="badge text-bg-success">Active</span>
+        {% else %}
+        <span class="badge text-bg-danger">Closed</span>
+        {% endif %}
+      </div>
     </div>
-    
+  </div>
+  <div class="listing-bottom">
+    <p class="listing-description-heading">Description</p>
+    <p class="listing-description">{{ listing.description }}</p>
+    <div class="comments">
+      <p class="listing-description-heading">Comments</p>
+      {% if user.is_authenticated %}
+      <form action="{% url 'listing' listing.title %}" method="post">
+        {% csrf_token %} {{ comment_form.as_p }}
+        <input type="hidden" name="form_type" value="comment_form" />
+        <button type="submit" class="btn btn-primary">Add Comment</button>
+      </form>
+
+      {% endif %} {% for comment in comments %}
+      <div class="comment-item">
+        <p><strong>{{ comment.commenter.username }}</strong> ({{ comment.timestamp }}):</p>
+        <p>{{ comment.comment }}</p>
+      </div>
+      {% empty %}
+      <p>No comments yet. Be the first to comment!</p>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 
 {% endblock %}
