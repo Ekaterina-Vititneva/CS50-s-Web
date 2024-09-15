@@ -96,7 +96,7 @@ def listing(request, title):
     if request.method == "POST":
         form_type = request.POST.get('form_type')
         if form_type == 'bid_form':
-            return handle_bid(request, listing)
+            return handle_bid(request, listing, user)
         elif form_type == 'comment_form':
             return handle_comment(request, listing)
         elif 'close_listing' in request.POST:
@@ -116,9 +116,6 @@ def listing(request, title):
         "comment_form": comment_form,
         "comments": comments,
     })
-
-
-
     
 def handle_comment(request, listing):
     comment_form = CommentForm(request.POST)
@@ -136,28 +133,34 @@ def handle_comment(request, listing):
 
     return redirect('listing', title=listing.title)
 
+def handle_bid(request, listing, user):
+    # Handle bid submission
+    form = BidForm(request.POST)
+    if form.is_valid():
+        bid_amount = form.cleaned_data['bid']
+        if bid_amount > listing.bid:
+            listing.bid = bid_amount
+            listing.last_modified_by = request.user
+            listing.save()
 
+            new_bid = Bid(
+                price=bid_amount,
+                bidder=request.user,
+                listing=listing,
+            )
+            new_bid.save()
 
+            listing.last_modified_by = user
+            listing.save()
 
-
-def handle_comment(request, listing):
-    comment_form = CommentForm(request.POST)
-    if comment_form.is_valid():
-        new_comment = Comment(
-            listing=listing,
-            commenter=request.user,
-            comment=comment_form.cleaned_data['comment']  # Access cleaned form data
-        )
-        new_comment.save()
-        messages.success(request, "Your comment was added successfully!")
+            messages.success(request, "Your bid was placed successfully!")
+        else:
+            messages.error(request, "Your bid must be higher than the current bid.", extra_tags='danger')
     else:
-        print("Form is invalid:", comment_form.errors)
-        messages.error(request, "There was a problem with your comment. Please try again.")
+        messages.error(request, "Please enter a valid bid.", extra_tags='danger')
 
+    # Always redirect back to the listing page, whether the bid was successful or not
     return redirect('listing', title=listing.title)
-
-
-
 
 
 def handle_close_listing(request, listing):
@@ -168,7 +171,6 @@ def handle_close_listing(request, listing):
 
     return redirect('listing', title=listing.title)
 
-    
 
 def categories(request):
     unique_categories = Listing.objects.values('category').distinct()
