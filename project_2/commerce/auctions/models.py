@@ -17,6 +17,13 @@ class Listing(models.Model):
         ('Fashion', 'Fashion'),
         ('Home', 'Home'),
         ('Toys', 'Toys'),
+        ('Books', 'Books'),
+        ('Sports', 'Sports'),
+        ('Health', 'Health'),
+        ('Beauty', 'Beauty'),
+        ('Jewelry', 'Jewelry'),
+        ('Garden', 'Garden'),
+        ('Music', 'Music'),
     ]
     category = models.CharField(max_length=64, choices=CATEGORIES, blank=True)
     active = models.BooleanField(default=True)

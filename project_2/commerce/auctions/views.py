@@ -200,7 +200,8 @@ def add_comment(request, title):
     return redirect('listing', title=listing.title)
 
 def no_category_listings(request):
-    listings = Listing.objects.filter(category='')  # Fetch listings with no category
+    # Fetch listings where category is None or an empty string
+    listings = Listing.objects.filter(category__isnull=True) | Listing.objects.filter(category='')
     return render(request, "auctions/no_category_listings.html", {
         "listings": listings,
         "category": "No Category Assigned"
