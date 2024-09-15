@@ -18,11 +18,14 @@
                         <div class="card-price">
                             <p class="card-subtitle-bold">Price: {{ listing.bid }}€</p>
                             <div class="card-statuse">
+                                <span class="badge text-bg-success">{{ listing.category }}</span>
+                                <!-- Active listing statuse
                                 {%if listing.active%}
                                     <span class="badge text-bg-success">Active</span>
                                 {% else %}
                                     <span class="badge text-bg-danger">Closed</span>
-                                {% endif %}
+                                {% endif %} -->
+
                             </div>
                         </div>
                         <p class="card-text">{{ listing.description }}</p>
