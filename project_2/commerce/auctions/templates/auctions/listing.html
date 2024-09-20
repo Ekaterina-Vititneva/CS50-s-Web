@@ -81,8 +81,10 @@
       {% endif %} {% for comment in comments %}
       <div class="card">
         <div class="comment-item">
-          <p><strong>{{ comment.commenter.username }}</strong> ({{ comment.timestamp }}):</p>
-          <p>{{ comment.comment }}</p>
+          <p class="card-header">
+            <strong>{{ comment.commenter.username }}</strong> ({{ comment.timestamp }}):
+          </p>
+          <p class="card-body">{{ comment.comment }}</p>
         </div>
       </div>
       {% empty %}
