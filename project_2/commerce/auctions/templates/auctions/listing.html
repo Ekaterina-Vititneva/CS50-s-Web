@@ -70,12 +70,17 @@
     <div class="comments">
       <p class="listing-description-heading">Comments</p>
       {% if user.is_authenticated %}
-      <div class="card">
-        <form action="{% url 'listing' listing.title %}" method="post">
-          {% csrf_token %} {{ comment_form.as_p }}
-          <input type="hidden" name="form_type" value="comment_form" />
-          <button type="submit" class="btn btn-primary">Add Comment</button>
-        </form>
+      <div class="card mt-3">
+        <div class="card-body">
+          <form action="{% url 'listing' listing.title %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              {{ comment_form.comment }}
+              <!-- This will render the comment field as a textarea -->
+            </div>
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+          </form>
+        </div>
       </div>
 
       {% endif %} {% for comment in comments %}
