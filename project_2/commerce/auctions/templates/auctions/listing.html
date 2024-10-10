@@ -69,19 +69,16 @@
     <p class="listing-description">{{ listing.description }}</p>
     <div class="comments">
       <p class="listing-description-heading">Comments</p>
+
       {% if user.is_authenticated %}
-      <div class="card mt-3">
-        <div class="card-body">
-          <form action="{% url 'listing' listing.title %}" method="post">
-            {% csrf_token %}
-            <div class="mb-3">
-              {{ comment_form.comment }}
-              <!-- This will render the comment field as a textarea -->
-            </div>
-            <button type="submit" class="btn btn-primary">Add Comment</button>
-          </form>
-        </div>
-      </div>
+
+      <form action="{% url 'listing' listing.title %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="comment_form" />
+        <!-- Ensure this is present -->
+        <div class="mb-3">{{ comment_form.comment }}</div>
+        <button type="submit" class="btn btn-primary">Add Comment</button>
+      </form>
 
       {% endif %} {% for comment in comments %}
       <div class="card">

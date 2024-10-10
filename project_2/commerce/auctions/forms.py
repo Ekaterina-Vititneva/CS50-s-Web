@@ -17,4 +17,10 @@ class BidForm(forms.Form):
     bid = forms.DecimalField(label="Place Bid", widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '0.00€'}))
     
 class CommentForm(forms.Form):
-    comment = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Add a comment...'}))
+    comment = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',  # Bootstrap class for styling
+            'rows': 3,                # Adjust the number of rows
+            'placeholder': 'Add a comment...',  # Placeholder text
+        })
+    )
