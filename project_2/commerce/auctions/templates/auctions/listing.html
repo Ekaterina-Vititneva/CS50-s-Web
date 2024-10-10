@@ -50,18 +50,25 @@
       {% endif %} {% endif %}
     </div>
     <div class="listing-details">
-      <div>Category: {{ listing.category }}</div>
-      <div>Listed by {{ listing.created_by }}</div>
-      <div>Last Bid by {{ listing.last_modified_by }}</div>
-      <div>Created time: {{ listing.created_at }}</div>
-      <div>Updated time: {{ listing.updated_at }}</div>
-      <div>
-        Statuse: {%if listing.active%}
-        <span class="badge text-bg-success">Active</span>
-        {% else %}
-        <span class="badge text-bg-danger">Closed</span>
-        {% endif %}
+      <div class="row">
+          <div class="col-md-6">
+              <p><strong>Category:</strong> {{ listing.category }}</p>
+              <p><strong>Listed by:</strong> {{ listing.created_by }}</p>
+              <p><strong>Last Bid by:</strong> {{ listing.last_modified_by }}</p>
+          </div>
+          <div class="col-md-6">
+              <p><strong>Created time:</strong> {{ listing.created_at }}</p>
+              <p><strong>Updated time:</strong> {{ listing.updated_at }}</p>
+              <p><strong>Statuse:</strong> 
+                {%if listing.active%}
+                <span class="badge text-bg-success">Active</span>
+                {% else %}
+                <span class="badge text-bg-danger">Closed</span>
+                {% endif %}</p>
+          </div>
       </div>
+  </div>
+  
     </div>
   </div>
   <div class="listing-bottom">
