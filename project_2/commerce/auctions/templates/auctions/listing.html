@@ -71,14 +71,16 @@
       <p class="listing-description-heading">Comments</p>
 
       {% if user.is_authenticated %}
-
-      <form action="{% url 'listing' listing.title %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="form_type" value="comment_form" />
-        <!-- Ensure this is present -->
-        <div class="mb-3">{{ comment_form.comment }}</div>
-        <button type="submit" class="btn btn-primary">Add Comment</button>
-      </form>
+      <div class="card mt-3">
+        <div class="card-body">
+          <form action="{% url 'listing' listing.title %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="comment_form" />
+            <div class="mb-3">{{ comment_form.comment }}</div>
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+          </form>
+        </div>
+      </div>
 
       {% endif %} {% for comment in comments %}
       <div class="card">
