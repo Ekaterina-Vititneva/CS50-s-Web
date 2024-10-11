@@ -8,28 +8,31 @@
 <div class="alert alert-success">Congratulations! You have won this auction.</div>
 {% endif %} {% endif %}
 
-<div class="listing">
-  <div class="listing-top">
-    {% if listing.imageURL %}
-    <img
-      src="{{ listing.imageURL }}"
-      alt="listingImage"
-      height="400px"
-      class="listing-image-single"
-    />
-    {% else %}
-    <div class="placeholder-rectangle-listing"></div>
-    {% endif %}
-    <div class="bid">
+<!-- Main Listing Section with Bootstrap Grid -->
+<div class="container">
+  <div class="row">
+    <!-- Left Column: Image Section -->
+    <div class="col-md-6">
+      {% if listing.imageURL %}
+      <img src="{{ listing.imageURL }}" alt="listingImage" class="img-fluid listing-image-single" />
+      {% else %}
+      <div class="placeholder-rectangle-listing"></div>
+      {% endif %}
+    </div>
+
+    <!-- Right Column: Bid and Details Section -->
+    <div class="col-md-6">
       <h4 class="listing-bid">{{ listing.bid }}€</h4>
+
+      <!-- Bid Form -->
       {% if user.is_authenticated %}
       <form action="{% url 'listing' listing.title %}" method="post" class="bid-form">
         {% csrf_token %} {{ form.as_p }}
         <input type="hidden" name="form_type" value="bid_form" />
-        <!-- Other form elements -->
-        <button type="submit" class="btn btn-primary btn-submit">Submit</button>
+        <button type="submit" class="btn btn-primary btn-submit">Submit Bid</button>
       </form>
 
+      <!-- Watchlist Form -->
       <form method="post">
         {% csrf_token %} {% if listing in user.watchlist.all %}
         <button type="submit" name="remove_from_watchlist" class="btn btn-danger">
@@ -41,66 +44,78 @@
         </button>
         {% endif %}
       </form>
-      {% if user == listing.created_by %}
+
+      <!-- Close Listing Form for the creator -->
+      {% if user == listing.created_by and listing.active %}
       <form method="post">
-        {% csrf_token %} {% if listing.active == True %}
+        {% csrf_token %}
         <button type="submit" name="close_listing" class="btn btn-danger">Close Listing</button>
-        {% endif %}
       </form>
       {% endif %} {% endif %}
-    </div>
-    <div class="listing-details">
-      <div class="row">
-          <div class="col-md-6">
-              <p><strong>Category:</strong> {{ listing.category }}</p>
-              <p><strong>Listed by:</strong> {{ listing.created_by }}</p>
-              <p><strong>Last Bid by:</strong> {{ listing.last_modified_by }}</p>
-          </div>
-          <div class="col-md-6">
-              <p><strong>Created time:</strong> {{ listing.created_at }}</p>
-              <p><strong>Updated time:</strong> {{ listing.updated_at }}</p>
-              <p><strong>Statuse:</strong> 
-                {%if listing.active%}
-                <span class="badge text-bg-success">Active</span>
-                {% else %}
-                <span class="badge text-bg-danger">Closed</span>
-                {% endif %}</p>
-          </div>
-      </div>
-  </div>
-  
-    </div>
-  </div>
-  <div class="listing-bottom">
-    <p class="listing-description-heading">Description</p>
-    <p class="listing-description">{{ listing.description }}</p>
-    <div class="comments">
-      <p class="listing-description-heading">Comments</p>
 
-      {% if user.is_authenticated %}
-      <div class="card mt-3">
-        <div class="card-body">
-          <form action="{% url 'listing' listing.title %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="form_type" value="comment_form" />
-            <div class="mb-3">{{ comment_form.comment }}</div>
-            <button type="submit" class="btn btn-primary">Add Comment</button>
-          </form>
+      <!-- Listing Details Section -->
+      <div class="listing-details">
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Category:</strong> {{ listing.category }}</p>
+            <p><strong>Listed by:</strong> {{ listing.created_by }}</p>
+            <p><strong>Last Bid by:</strong> {{ listing.last_modified_by }}</p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Created time:</strong> {{ listing.created_at }}</p>
+            <p><strong>Updated time:</strong> {{ listing.updated_at }}</p>
+            <p>
+              <strong>Status:</strong>
+              {% if listing.active %}
+              <span class="badge text-bg-success">Active</span>
+              {% else %}
+              <span class="badge text-bg-danger">Closed</span>
+              {% endif %}
+            </p>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      {% endif %} {% for comment in comments %}
-      <div class="card">
-        <div class="comment-item">
-          <p class="card-header">
+  <!-- Description Section -->
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h4 class="listing-description-heading">Description</h4>
+      <p class="listing-description">{{ listing.description }}</p>
+
+      <!-- Comments Section -->
+      <div class="comments">
+        <h4 class="listing-description-heading">Comments</h4>
+
+        <!-- Add Comment Form -->
+        {% if user.is_authenticated %}
+        <div class="card mt-3">
+          <div class="card-body">
+            <form action="{% url 'listing' listing.title %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="form_type" value="comment_form" />
+              <div class="mb-3">{{ comment_form.comment }}</div>
+              <button type="submit" class="btn btn-primary">Add Comment</button>
+            </form>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Display Comments -->
+        {% for comment in comments %}
+        <div class="card mt-3">
+          <div class="card-header">
             <strong>{{ comment.commenter.username }}</strong> ({{ comment.timestamp }}):
-          </p>
-          <p class="card-body">{{ comment.comment }}</p>
+          </div>
+          <div class="card-body">
+            <p>{{ comment.comment }}</p>
+          </div>
         </div>
+        {% empty %}
+        <p>No comments yet. Be the first to comment!</p>
+        {% endfor %}
       </div>
-      {% empty %}
-      <p>No comments yet. Be the first to comment!</p>
-      {% endfor %}
     </div>
   </div>
 </div>

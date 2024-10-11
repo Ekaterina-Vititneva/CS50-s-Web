@@ -206,3 +206,9 @@ body {
 .btn-primary {
   margin-top: 10px;
 }
+
+.container {
+  max-width: 100%; /* Allow the container to take full width */
+  padding-left: 15px;
+  padding-right: 15px;
+}
